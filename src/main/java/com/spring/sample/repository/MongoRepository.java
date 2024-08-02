@@ -10,6 +10,7 @@ import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
 public class MongoRepository {
@@ -38,5 +39,9 @@ public class MongoRepository {
 
     public void addDocument(String collectionName, Document document) {
         this.database.getCollection(collectionName).insertOne(document);
+    }
+
+    public MongoCursor<Document> findDocuments(String collectionName, Document query) {
+        return this.database.getCollection(collectionName).find(query).iterator();
     }
 }

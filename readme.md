@@ -10,7 +10,7 @@ To get started with this project, follow these steps:
 
 1. Clone the repository:
 ```shell
-git clone https://github.com/your-username/order-management-system.git
+git clone https://github.com/saurabhr97/Spring-mongo-oms.git
 ```
 
 2. Build the project:
