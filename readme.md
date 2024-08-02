@@ -1,5 +1,3 @@
-Sure, here's a basic outline for a README file for your order management system:
-
 # Order Management System
 
 This project is an order management system built using Spring Boot and MongoDB.
