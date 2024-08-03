@@ -5,20 +5,18 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import com.spring.sample.repository.MongoRepository;
-import com.spring.sample.services.ManageProductsService;
+import com.spring.sample.util.DatabaseHelper;
 
 @SpringBootConfiguration
 public class Configurations {
 
-    @Value("${mongodb.connectionString}")
-    private String connectionString;
     @Bean
-    public MongoRepository getMongoRepository() {
-        return new MongoRepository(this.connectionString);
+    public MongoRepository getMongoRepository(@Value("${mongodb.connectionString}") String connectionString) {
+        return new MongoRepository(connectionString);
     }
 
     @Bean
-    public ManageProductsService getManageProductsService() {
-        return new ManageProductsService("products");
+    public DatabaseHelper getDatabaseHelper(@Value("${mongodb.productsCollection}") String productsCollection, @Value("${mongodb.customersCollection}") String customersCollection) {
+        return new DatabaseHelper(productsCollection, customersCollection);
     }
 }

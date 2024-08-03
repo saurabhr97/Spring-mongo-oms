@@ -2,7 +2,6 @@ package com.spring.sample.controller;
 
 import java.util.List;
 
-import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.sample.model.Customer;
 import com.spring.sample.model.Product;
-import com.spring.sample.services.ManageProductsService;
+import com.spring.sample.util.DatabaseHelper;
 
 @RestController
 @RequestMapping("/api")
@@ -22,7 +22,7 @@ public class SampleController {
     
     private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
     @Autowired
-    private ManageProductsService manageProductsService;
+    private DatabaseHelper databaseHelper;
 
     @GetMapping("/hello")
     public String sayHello() {
@@ -33,14 +33,21 @@ public class SampleController {
     @PostMapping("/addProduct")
     public String addProduct(@RequestBody Product newProduct) {
         logger.info("Adding Product: {}", newProduct.getName());
-        manageProductsService.addProduct(newProduct);
+        databaseHelper.addProduct(newProduct);
         return "Product Added: " + newProduct.getName();
     }
 
-    @GetMapping("/findProductByName")
-    public Document findProductByName(@RequestParam(name = "productName") String productName) {
-        logger.info("Searching for product: {}", productName);
-        List<Product> products = manageProductsService.findProductByName(productName);
-        return products.get(0).toDocument();
+    @PostMapping("/addCustomer")
+    public String addCustomer(@RequestBody Customer customer) {
+        logger.info("Adding Customer: {}", customer.getName());
+        databaseHelper.addCustomer(customer);
+        return "Customer Added: " + customer.getName();
+    }
+    
+
+    @GetMapping("/findProductByCategory")
+    public List<Product> findProductByCategory(@RequestParam(name = "productCategory") String productCategory) {
+        logger.info("Searching for category: {}", productCategory);
+        return databaseHelper.findProductByCategory(productCategory);
     }
 }

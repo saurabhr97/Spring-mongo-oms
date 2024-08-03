@@ -18,10 +18,6 @@ public class MongoRepository {
     private final MongoClient mongoClient;
     private final MongoDatabase database;
 
-    public MongoRepository() {
-        this("mongodb://localhost:27017");
-    }
-    
     public MongoRepository(String connectionString) {
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
@@ -43,5 +39,9 @@ public class MongoRepository {
 
     public MongoCursor<Document> findDocuments(String collectionName, Document query) {
         return this.database.getCollection(collectionName).find(query).iterator();
+    }
+
+    public Document findSingleDocument(String collectionName, Document query) {
+        return this.database.getCollection(collectionName).find(query).first();
     }
 }
