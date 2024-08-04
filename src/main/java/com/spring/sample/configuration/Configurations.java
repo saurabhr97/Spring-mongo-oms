@@ -16,7 +16,7 @@ public class Configurations {
     }
 
     @Bean
-    public DatabaseHelper getDatabaseHelper(@Value("${mongodb.productsCollection}") String productsCollection, @Value("${mongodb.customersCollection}") String customersCollection) {
-        return new DatabaseHelper(productsCollection, customersCollection);
+    public DatabaseHelper getDatabaseHelper() {
+        return new DatabaseHelper();
     }
 }

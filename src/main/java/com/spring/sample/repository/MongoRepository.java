@@ -1,6 +1,7 @@
 package com.spring.sample.repository;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +39,10 @@ public class MongoRepository {
     }
 
     public MongoCursor<Document> findDocuments(String collectionName, Document query) {
+        return this.database.getCollection(collectionName).find(query).iterator();
+    }
+
+    public MongoCursor<Document> findDocuments(String collectionName, Bson query) {
         return this.database.getCollection(collectionName).find(query).iterator();
     }
 

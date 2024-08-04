@@ -43,11 +43,17 @@ public class SampleController {
         databaseHelper.addCustomer(customer);
         return "Customer Added: " + customer.getName();
     }
-    
 
     @GetMapping("/findProductByCategory")
     public List<Product> findProductByCategory(@RequestParam(name = "productCategory") String productCategory) {
         logger.info("Searching for category: {}", productCategory);
         return databaseHelper.findProductByCategory(productCategory);
+    }
+
+    @GetMapping("/generateInvoice")
+    public String generateInvoice(@RequestParam(name = "customerId") String customerId, @RequestParam(name = "productIds") List<String> productIds) {
+        logger.info("Generating Invoice for Customer: {} and ProductIds: {}", customerId, productIds);
+        databaseHelper.addTransaction(customerId, productIds);
+        return "Invoice Generated for Customer: " + customerId;
     }
 }
